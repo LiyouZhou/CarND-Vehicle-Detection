@@ -17,15 +17,15 @@ In order to detect the presence of cars in a given image certain features of the
 
 This is a histogram of the raw pixel values. You can see a plot below:
 
-<img src="output_images/colour_hist.jpg" width="500">
+<img src="output_images/colour_hist.jpg" width="800">
 
 ### Raw Pixel Values
 
 Raw pixel values can also be used to express features of the image. But to reduce the number of features, the pixel values are binned spatially. Below are plots of spatially binned pixel value in different colour spaces. It is found during later experimentation with the classifier that LUV space is the best at classifying cars. Although it is not immediately clear why when looking at the scatter plots. `notcar3` in particular looks very similar to a car image in the scatter plot hence would be difficult to classify correctly using raw pixel values alone.
 
-<img src="output_images/colour_space_rgb_features.jpg" width="500">
-<img src="output_images/colour_space_hsv_features.jpg" width="500">
-<img src="output_images/colour_space_luv_features.jpg" width="500">
+<img src="output_images/colour_space_rgb_features.jpg" width="800">
+<img src="output_images/colour_space_hsv_features.jpg" width="800">
+<img src="output_images/colour_space_luv_features.jpg" width="800">
 
 ### Histogram of Oriented Gradients (HOG)
 
@@ -70,17 +70,17 @@ Windows are moved across the image to take samples which are passed through the 
 
 138 windows of various sizes are used in the final pipeline. The following image show the area the windows searched.
 
-<img src="output_images/search_window.jpg" width="800">
+<img src="output_images/search_window.jpg" width="1000">
 
 Each window is extracted from image and passed through the classifier. A number of windows will return a positive detection. Below is a plot of the sliding window search working on test images.
 
-<img src="output_images/search_window.jpg" width="1000">
+<img src="output_images/detected_window.jpg" width="1000">
 
 ## Filter for False Positives and Draw Bounding Boxes.
 
 For each window where there is a positive detection, the pixels in that window are given a value of 1. When this value is added for all the windows we obtain a heat map. This can be seen in the plot below. This heat map have hotter areas where positively detected windows overlap. By applying a threshold to the heat map the areas with only a few window detected can be rejected as false positives.
 
-<img src="output_images/heatmap.jpg" width="500">
+<img src="output_images/heatmap.jpg" width="800">
 
 By using the the function `scipy.ndimage.measurements.label()`, distinct blobs on the filtered heat map can be labelled. Pixels associated with a blob is given the blob number as the value. From there, I filtered by blob number and drawn bounding boxes around the filtered result. A text label is also drawn on the final image to indicate the blob number.
 
